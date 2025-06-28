@@ -1,9 +1,13 @@
-// src/app/page.tsx
-
-'use client'; // <-- IMPORTANT: This directive makes this a Client Component
+'use client';
 
 import { useState } from 'react';
-import { useRouter } from 'next/navigation'; // Hook for navigation in App Router
+import { useRouter } from 'next/navigation';
+
+import Container from '@mui/material/Container';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
 
 export default function HomePage() {
   const [slugInput, setSlugInput] = useState('');
@@ -21,38 +25,42 @@ export default function HomePage() {
   };
 
   return (
-    <main style={{ padding: '20px', fontFamily: 'Arial, sans-serif' }}>
-      <h1>Welcome to the Main App Page</h1>
-      <p>Enter a slug to view details:</p>
+    <Container maxWidth="lg">
+      <Box
+        sx={{
+          my: 4,
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <Typography variant="h4" component="h1" gutterBottom>
+          Welcome to the Main App Page
+        </Typography>
 
-      <form onSubmit={handleSubmit} style={{ display: 'flex', gap: '10px', marginBottom: '20px' }}>
-        <input
-          type="text"
-          value={slugInput}
-          onChange={handleInputChange}
-          placeholder="e.g., product-123"
-          style={{ padding: '8px', borderRadius: '4px', border: '1px solid #ccc' }}
-        />
-        <button
-          type="submit"
-          style={{
-            padding: '8px 15px',
-            backgroundColor: '#0070f3',
-            color: 'white',
-            border: 'none',
-            borderRadius: '4px',
-            cursor: 'pointer',
-          }}
-        >
-          Go to Details
-        </button>
-      </form>
+        <Typography variant="body1" sx={{ mb: 2 }}>
+          Enter a slug to view details:
+        </Typography>
 
-      <p>
-        <a href="https://nextjs.org/docs" target="_blank" rel="noopener noreferrer">
-          Next.js Docs
-        </a>
-      </p>
-    </main>
+        <Box component="form" onSubmit={handleSubmit} sx={{ display: 'flex', gap: 2, mb: 4 }}>
+          <TextField
+            label="Enter Slug"
+            variant="outlined" // Or 'filled', 'standard'
+            value={slugInput}
+            onChange={handleInputChange}
+            placeholder="e.g., product-123" // Still useful for initial guidance
+            sx={{ flexGrow: 1 }} // Allows TextField to grow and fill available space
+          />
+          <Button
+            type="submit"
+            variant="contained" // Or 'outlined', 'text'
+            size="large"       // Or 'medium', 'small'
+          >
+            Go to Details
+          </Button>
+        </Box>
+      </Box>
+    </Container>
   );
 }
