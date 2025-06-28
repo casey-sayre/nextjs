@@ -1,0 +1,10 @@
+{
+	"name": "nextjs-2",
+	"image": "mcr.microsoft.com/devcontainers/typescript-node:1-22-bookworm",
+	"features": {
+		"ghcr.io/devcontainers/features/node:1": {}
+	},
+	"mounts": [
+		"source=${localEnv:HOME}/.ssh,target=/home/node/.ssh,type=bind,readonly"
+	]
+}
