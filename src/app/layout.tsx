@@ -6,6 +6,8 @@ import theme from '../theme';
 import { CssBaseline } from '@mui/material';
 import MainAppBar from '@/components/MainAppBar';
 
+import { getServerSession } from '@/lib/auth'; 
+
 const roboto = Roboto({
   weight: ['300', '400', '500', '700'],
   subsets: ['latin'],
@@ -13,11 +15,12 @@ const roboto = Roboto({
   variable: '--font-roboto',
 });
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
+  const session = await getServerSession();
   return (
     <html lang="en" className={roboto.variable}>
       <body>
@@ -25,7 +28,7 @@ export default function RootLayout({
           <ThemeProvider theme={theme}>
             <CssBaseline />
             <main>
-              <MainAppBar></MainAppBar>
+              <MainAppBar session={session}></MainAppBar>
               {children}
             </main>
           </ThemeProvider>
