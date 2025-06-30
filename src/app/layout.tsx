@@ -4,6 +4,7 @@ import { Roboto } from 'next/font/google';
 import { ThemeProvider } from '@mui/material/styles';
 import theme from '../theme';
 import { CssBaseline } from '@mui/material';
+import MainAppBar from '@/components/MainAppBar';
 
 const roboto = Roboto({
   weight: ['300', '400', '500', '700'],
@@ -24,6 +25,7 @@ export default function RootLayout({
           <ThemeProvider theme={theme}>
             <CssBaseline />
             <main>
+              <MainAppBar></MainAppBar>
               {children}
             </main>
           </ThemeProvider>

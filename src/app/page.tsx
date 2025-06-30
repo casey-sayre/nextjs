@@ -36,30 +36,9 @@ export default function HomePage() {
         }}
       >
         <Typography variant="h4" component="h1" gutterBottom>
-          Welcome to the Main App Page
+          Guitar Gear Inventory and Journal
         </Typography>
 
-        <Typography variant="body1" sx={{ mb: 2 }}>
-          Enter a slug to view details:
-        </Typography>
-
-        <Box component="form" onSubmit={handleSubmit} sx={{ display: 'flex', gap: 2, mb: 4 }}>
-          <TextField
-            label="Enter Slug"
-            variant="outlined" // Or 'filled', 'standard'
-            value={slugInput}
-            onChange={handleInputChange}
-            placeholder="e.g., product-123" // Still useful for initial guidance
-            sx={{ flexGrow: 1 }} // Allows TextField to grow and fill available space
-          />
-          <Button
-            type="submit"
-            variant="contained" // Or 'outlined', 'text'
-            size="large"       // Or 'medium', 'small'
-          >
-            Go to Details
-          </Button>
-        </Box>
       </Box>
     </Container>
   );

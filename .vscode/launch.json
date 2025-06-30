@@ -1,0 +1,39 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      // Your new, successful server-side debug configuration
+      "name": "Next.js: Launch Server Side", // Renamed for clarity
+      "type": "node-terminal",             // Key change: use 'node-terminal'
+      "request": "launch",                 // Key change: use 'launch'
+      "command": "npm run dev",            // Key change: command to run the dev server
+      "cwd": "${workspaceFolder}",         // Assumes my-task-app is the direct workspace root
+      "skipFiles": [
+        "<node_internals>/**",
+        "node_modules/**" // Often beneficial to skip node_modules in launch type too
+      ]
+      // No "port", "restart", "outFiles" needed for node-terminal/launch type
+      // as 'node-terminal' handles these implicitly
+    },
+    {
+      "name": "Next.js: Debug Client Side",
+      "type": "chrome",
+      "request": "launch",
+      "url": "http://localhost:3000",
+      "webRoot": "${workspaceFolder}", // Assuming my-task-app is workspace root
+      "skipFiles": [
+        "node_modules/**"
+      ]
+      // No "cwd" needed for launch type chrome
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Next.js: All (Client + Server)",
+      "configurations": [
+        "Next.js: Launch Server Side", // Reference the new server-side config
+        "Next.js: Debug Client Side"
+      ]
+    }
+  ]
+}
