@@ -11,9 +11,18 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Link from 'next/link';
 
-export default function ButtonAppBar() {
+import { useRouter } from 'next/navigation';
+import { loginAction, logoutAction } from '@/actions/auth';
+import { AuthSession } from '@/lib/auth';
+
+interface MainAppBarProps {
+  session: AuthSession | null; // Accept AuthSession from parent layout
+}
+
+export default function ButtonAppBar({ session }: MainAppBarProps) {
   const [anchorEl, setAnchorEl] = useState(null); // State for anchoring the menu
-  const open = Boolean(anchorEl); // Derived open state
+  const open = Boolean(anchorEl); // Derived open state of menu
+  const router = useRouter();
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget); // Set anchor when IconButton is clicked
@@ -22,6 +31,21 @@ export default function ButtonAppBar() {
   const handleClose = () => {
     setAnchorEl(null); // Close menu when clicked outside or selecting an item
   };
+
+  const handleLogin = async () => {
+    // This will perform the server-side redirect to Cognito
+    await loginAction();
+  };
+
+  const handleSignOut = async () => {
+    // This will perform the server-side sign out (clear cookies)
+    await logoutAction();
+    router.refresh(); // Tell router to refresh current page to re-evaluate auth state
+    router.push('/'); // Redirect to home page after sign out
+  };
+
+  const isAuthenticated = !!session;
+  
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -48,7 +72,11 @@ export default function ButtonAppBar() {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Guitar Gear
           </Typography>
-          <Button color="inherit">Login</Button>
+          {isAuthenticated ? (
+              <Button color="inherit" onClick={handleSignOut}>Sign Out</Button>
+            ) : (
+              <Button color="inherit" onClick={handleLogin}>Login</Button>
+          )}
         </Toolbar>
       </AppBar>
     </Box>
