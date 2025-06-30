@@ -71,7 +71,7 @@ export default function PedalsPage() {
         // Responsive Grid for PedalSummaryCard components
         <Grid container spacing={4} justifyContent="center">
           {pedals.map((pedal) => (
-            <Grid key={pedal.slug} size={{ sm: 12, md: 6, lg: 3}}>
+            <Grid key={pedal.id} size={{ sm: 12, md: 6, lg: 3}}>
               <PedalSummaryCard pedal={pedal} />
             </Grid>
           ))}

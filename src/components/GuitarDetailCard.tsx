@@ -45,9 +45,17 @@ const GuitarDetailCard: React.FC<GuitarDetailCardProps> = ({ guitar }) => {
         </Box>
 
       </CardContent>
-      <CardActions sx={{ justifyContent: 'flex-end', p: 2 }}>
+      <CardActions sx={{ justifyContent: 'space-between', p: 2 }}>
         <Button size="small" component={Link} href="/guitars">
           Back to Guitars List
+        </Button>
+        <Button
+          size="small"
+          variant="contained"
+          component={Link}
+          href={`/guitars/${guitar.slug}/edit`} // Still use slug for edit URL
+        >
+          Edit Guitar
         </Button>
       </CardActions>
     </Card>

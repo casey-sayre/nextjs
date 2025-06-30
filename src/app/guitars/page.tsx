@@ -10,6 +10,8 @@ import Alert from '@mui/material/Alert';
 
 import { Guitar } from '@/types/Guitar';
 import GuitarSummaryCard from '@/components/GuitarSummaryCard';
+import { Fab, Link } from '@mui/material';
+import AddIcon from '@mui/icons-material/Add';
 
 export default function GuitarsPage() {
   const [guitars, setGuitars] = useState<Guitar[]>([]);
@@ -62,6 +64,21 @@ export default function GuitarsPage() {
         <Typography variant="body1" color="text.secondary">
           Click on any card for more details.
         </Typography>
+        <Box sx={{
+          position: 'fixed', // Keep it in place as the user scrolls
+          bottom: { xs: 16, md: 24 }, // Bottom margin (adjust for different screen sizes)
+          right: { xs: 16, md: 24 },  // Right margin
+          zIndex: 1000 // Ensure it's above other content
+        }}>
+          <Fab
+            color="primary" // Uses your theme's primary color
+            aria-label="add" // Important for accessibility
+            component={Link} // Crucial: use Next.js Link for client-side navigation
+            href="/guitars/new" // The URL path to your new guitar form page
+          >
+            <AddIcon /> {/* The plus icon */}
+          </Fab>
+        </Box>
       </Box>
 
       {/* Conditional Rendering based on loading, error, and data state */}
@@ -80,7 +97,7 @@ export default function GuitarsPage() {
       ) : (
         <Grid container spacing={4} justifyContent="center">
           {guitars.map((guitar) => (
-            <Grid key={guitar.slug} size={{ sm: 12, md: 6, lg: 3 }}>
+            <Grid key={guitar.id} size={{ sm: 12, md: 6, lg: 3 }}>
               <GuitarSummaryCard guitar={guitar} />
             </Grid>
           ))}

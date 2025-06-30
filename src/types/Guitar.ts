@@ -1,4 +1,5 @@
 export type Guitar = {
+  id: string; // UUID
   slug: string;
   name: string;
   description: string;
