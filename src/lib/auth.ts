@@ -104,6 +104,7 @@ export async function redirectToCognitoLogin() {
   loginUrl.searchParams.append('scope', 'openid profile email'); // Requesting standard OIDC scopes
   loginUrl.searchParams.append('code_challenge', codeChallenge);
   loginUrl.searchParams.append('code_challenge_method', 'S256'); // SHA256 hashing method for PKCE
+  loginUrl.searchParams.append('prompt', 'login');
 
   // Generate and append state for CSRF protection.
   // This value is verified upon redirect back from Cognito.
@@ -191,20 +192,6 @@ export async function handleCognitoCallback(request: Request): Promise<NextRespo
     // --- Validate ID Token (CRITICAL SECURITY STEP) ---
     // Fetch and cache Cognito's public keys (JWKS) to verify JWT signatures
     await fetchAndCacheCognitoJwks();
-
-    // Verify the ID Token's signature and claims
-    // const decodedIdToken = verify(id_token, (header: any, callback: any) => {
-    //   const pem = pems[header.kid];
-    //   if (!pem) {
-    //     return callback(new Error('Public key not found for token KID.'));
-    //   }
-    //   callback(null, pem);
-    // }, {
-    //   // Add standard JWT verification options:
-    //   audience: COGNITO_APP_CLIENT_ID, // Ensure token is for your app client
-    //   issuer: `https://cognito-idp.${COGNITO_REGION}.amazonaws.com/${COGNITO_USER_POOL_ID}`, // Ensure token comes from correct issuer
-    //   algorithms: ['RS256'], // Specify expected signing algorithm
-    // }) as any; // Cast to any for now; in a real app, define a precise JWT payload interface
 
     const decodedIdToken: any = await new Promise((resolve, reject) => {
       verify(id_token, (header: any, callback: any) => { // Key provider callback
